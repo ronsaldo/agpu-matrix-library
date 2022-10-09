@@ -13,7 +13,8 @@ BaselineOfAGPUMatrix >> baseline: spec [
 			spec baseline: 'AbstractGPU' with: [
 				spec repository: 'github://ronsaldo/abstract-gpu' ].
 		
-			spec package: #'AbstractGPU-MatrixLibrary-Core'
+			spec package: #'AbstractGPU-MatrixLibrary-Core' with: [ 
+				spec requires: 'AbstractGPU' ]
 		].
 
 ]

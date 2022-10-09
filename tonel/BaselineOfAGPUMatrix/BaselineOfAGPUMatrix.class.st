@@ -1,6 +1,6 @@
 Class {
 	#name : #BaselineOfAGPUMatrix,
-	#superclass : #Object,
+	#superclass : #BaselineOf,
 	#category : #BaselineOfAGPUMatrix
 }
 
@@ -10,7 +10,11 @@ BaselineOfAGPUMatrix >> baseline: spec [
 	spec 
 		for: #common
 		do: [ 
-			spec package: #'AbstractGPU-MatrixLibrary-Core'
-			].
+			spec baseline: 'AbstractGPU' with: [
+				spec repository: 'github://ronsaldo/abstract-gpu' ].
+		
+			spec package: #'AbstractGPU-MatrixLibrary-Core' with: [ 
+				spec requires: 'AbstractGPU' ]
+		].
 
 ]

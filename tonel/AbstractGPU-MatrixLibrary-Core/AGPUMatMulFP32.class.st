@@ -49,7 +49,17 @@ AGPUMatMulFP32 class >> reset [
 
 { #category : #'instance creation' }
 AGPUMatMulFP32 class >> uniqueInstance [
-	^ uniqueInstance ifNil: [ uniqueInstance := self new ]
+	^ uniqueInstance 
+		ifNil: [ uniqueInstance := self new ]
+		ifNotNil: [ uniqueInstance deviceIsValid 
+			ifFalse: [ uniqueInstance := self new ]
+			ifTrue: [ uniqueInstance ]  
+			]
+]
+
+{ #category : #initialization }
+AGPUMatMulFP32 >> deviceIsValid [
+	^ device isNull not
 ]
 
 { #category : #initialization }

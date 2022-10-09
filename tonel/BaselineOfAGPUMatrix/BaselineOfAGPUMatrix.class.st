@@ -1,6 +1,6 @@
 Class {
 	#name : #BaselineOfAGPUMatrix,
-	#superclass : #Object,
+	#superclass : #BaselineOf,
 	#category : #BaselineOfAGPUMatrix
 }
 

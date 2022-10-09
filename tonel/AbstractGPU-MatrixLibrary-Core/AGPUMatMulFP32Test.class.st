@@ -47,6 +47,30 @@ AGPUMatMulFP32Test >> test_2x2 [
 ]
 
 { #category : #tests }
+AGPUMatMulFP32Test >> test_64x64 [
+	| lhs rhs gpuresult gputime cpuresult cputime size gpuRounded cpuRounded |
+	size := 64.
+	lhs := AGPUMatrix rows: size columns: size tabulate: [ :r :c | r / c ].	
+	rhs := lhs copy. 
+	
+	gputime := [ gpuresult := lhs @ rhs ] timeToRun.
+	cputime := [ cpuresult := lhs @! rhs ] timeToRun.
+
+	Transcript crShow: 'CPU time: '; show: cputime; crShow: 'GPU Time: '; show: gputime; cr.
+	gpuRounded := 0.
+	cpuRounded := 0.
+	
+	gpuRounded := gpuresult asFloatArray collect: [ :x | x round: 4].
+	cpuRounded := cpuresult asFloatArray collect: [ :x | x round: 4].
+	
+	"At these large numbers the cpu and gpu results deviate by a small bit"
+	gpuRounded doWithIndex: [ :el :i | | diff |
+		diff := el / (cpuRounded at: i). 
+		self assert: diff <= 1.00001 ].
+		
+]
+
+{ #category : #tests }
 AGPUMatMulFP32Test >> test_80x80 [
 	| lhs rhs gpuresult gputime cpuresult cputime size gpuRounded cpuRounded |
 	size := 80.

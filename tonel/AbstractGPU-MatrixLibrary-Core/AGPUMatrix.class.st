@@ -40,6 +40,22 @@ AGPUMatrix >> @ rhs [
 ]
 
 { #category : #operations }
+AGPUMatrix >> @! rhs [
+	"This is the CPU version to provie time check against GPU version"
+	|lhs s result |
+	lhs := self.
+	lhs numberOfColumns = rhs numberOfRows ifFalse: [self error: 'dimensions do not conform'].
+	result := self class 
+		rows: lhs numberOfRows 
+		columns: rhs numberOfColumns 
+		tabulate: [:row :col | 
+			s := 0.
+			1 to: lhs numberOfColumns do: [:k | s := (lhs at: row at: k) * (rhs at: k at: col) + s ].
+			s ].
+	^ result contentsAsFloatArray 
+]
+
+{ #category : #operations }
 AGPUMatrix >> contentsAsFloatArray [
 	contents := contents asFloatArray
 ]

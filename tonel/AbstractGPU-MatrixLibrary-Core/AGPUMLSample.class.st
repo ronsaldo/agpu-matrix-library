@@ -219,7 +219,10 @@ void main()
 	rightMatrix inspect
 	outputMatrix inspect
 	"
-	self halt.
+	(Dictionary newFromPairs: {
+		#leftMatrix. leftMatrix . 
+		#rightMatrix. rightMatrix. 
+		#outputMatrix. outputMatrix } ) inspect
 	
 ]
 
